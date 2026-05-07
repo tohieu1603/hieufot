@@ -118,16 +118,82 @@ export default function scene01() {
   nebula.position.z = -2;
   group.add(nebula);
 
+  /* ---- Shooting-star streaks (decorative — adds life to the otherwise calm field) ---- */
+  const STREAK_COUNT = 4;
+  const streakGeo = new THREE.PlaneGeometry(0.04, 1.6, 1, 1);
+  streakGeo.translate(0, 0.8, 0); // pivot at the bottom = "head" of the streak
+  const streakMats = [];
+  for (let i = 0; i < STREAK_COUNT; i++) {
+    const m = new THREE.ShaderMaterial({
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      uniforms: {
+        uTime:    { value: 0 },
+        uOpacity: { value: 1 },
+        uOffset:  { value: i * 1.4 + Math.random() * 2.0 }, // staggered start
+        uPeriod:  { value: 6.0 + Math.random() * 4.0 },
+      },
+      vertexShader: /* glsl */ `
+        varying vec2 vUv;
+        void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
+      `,
+      fragmentShader: /* glsl */ `
+        uniform float uTime;
+        uniform float uOpacity;
+        uniform float uOffset;
+        uniform float uPeriod;
+        varying vec2 vUv;
+        void main() {
+          // life = 0 at start of streak, 1 at end
+          float life = mod(uTime + uOffset, uPeriod) / uPeriod;
+          // streak only visible during a brief slice of its period
+          float visible = smoothstep(0.0, 0.05, life) * (1.0 - smoothstep(0.18, 0.30, life));
+          // body alpha: bright at head (vUv.y=0), faded at tail (vUv.y=1)
+          float horiz = smoothstep(0.5, 0.0, abs(vUv.x - 0.5) * 2.0);
+          float vert  = pow(1.0 - vUv.y, 1.6);
+          float a = horiz * vert * visible;
+          gl_FragColor = vec4(vec3(1.0), a * 0.85 * uOpacity);
+        }
+      `,
+    });
+    const mesh = new THREE.Mesh(streakGeo, m);
+    // random start position + diagonal direction
+    const angle = -Math.PI * 0.18 + (Math.random() - 0.5) * 0.4;
+    mesh.rotation.z = angle;
+    mesh.position.set(-7 + Math.random() * 14, 1 + Math.random() * 4, -3 - Math.random() * 4);
+    mesh.userData = { vx: 6.0 + Math.random() * 3.0, vy: -3.0 - Math.random() * 1.5, baseX: mesh.position.x, baseY: mesh.position.y };
+    group.add(mesh);
+    streakMats.push({ mesh, mat: m });
+  }
+
   return {
     group,
     setOpacity(a) {
       pMat.uniforms.uOpacity.value      = a;
       nebulaMat.uniforms.uOpacity.value = a;
+      streakMats.forEach(s => s.mat.uniforms.uOpacity.value = a);
     },
     update(t, dt, local) {
       pMat.uniforms.uTime.value      = t;
       nebulaMat.uniforms.uTime.value = t;
       group.position.z = local * 4 - 2;
+      // shooting-star streaks: drift their meshes across the frame as time loops
+      streakMats.forEach(({ mesh, mat }) => {
+        mat.uniforms.uTime.value = t;
+        const period = mat.uniforms.uPeriod.value;
+        const offset = mat.uniforms.uOffset.value;
+        const life   = ((t + offset) % period) / period;
+        // reposition only at the start of each cycle so streaks travel cleanly
+        if (life < 0.04) {
+          mesh.position.x = mesh.userData.baseX = -8 + Math.random() * 4;   // start far left
+          mesh.position.y = mesh.userData.baseY =  3 + Math.random() * 3;   // upper area
+          mesh.position.z = -3 - Math.random() * 4;
+        } else {
+          mesh.position.x = mesh.userData.baseX + life * mesh.userData.vx;
+          mesh.position.y = mesh.userData.baseY + life * mesh.userData.vy;
+        }
+      });
     },
   };
 }

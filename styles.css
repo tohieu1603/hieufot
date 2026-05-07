@@ -40,6 +40,11 @@ body {
   max-width: 90vw;
   mix-blend-mode: difference;
 }
+
+.step--empty {
+  /* full-viewport scroll slot with no HTML content — only the canvas effect plays */
+  height: 100vh;
+}
 .step__inner.profile {
   mix-blend-mode: normal;
   text-align: left;

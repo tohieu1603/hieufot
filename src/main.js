@@ -7,17 +7,18 @@ import { SceneManager } from './sceneManager.js';
 import { buildPostFX }   from './postfx.js';
 import { initCursor, initFullscreen } from './util/cursor.js';
 
-import scene01 from './scenes/01-hello.js';
-import scene02 from './scenes/02-from-an-idea.js';
-import scene03 from './scenes/03-give-shape.js';
-import scene04 from './scenes/04-follow-the-trends.js';
-import scene05 from './scenes/05-let-it-morph.js';
-import scene06 from './scenes/06-eyes-on-the-horizon.js';
-import scene07 from './scenes/07-keep-trying.js';
-import scene08 from './scenes/08-keep-learning.js';
-import scene09 from './scenes/09-work-as-a-team.js';
-import scene10 from './scenes/10-thanks.js';
-import scene11 from './scenes/11-profile.js';
+import sHello   from './scenes/01-hello.js';
+import sMeteor  from './scenes/02-meteor-water.js';
+import sIdea    from './scenes/02-from-an-idea.js';
+import sShape   from './scenes/03-give-shape.js';
+import sTrends  from './scenes/04-follow-the-trends.js';
+import sMorph   from './scenes/05-let-it-morph.js';
+import sHorizon from './scenes/06-eyes-on-the-horizon.js';
+import sTrying  from './scenes/07-keep-trying.js';
+import sLearn   from './scenes/08-keep-learning.js';
+import sTeam    from './scenes/09-work-as-a-team.js';
+import sThanks  from './scenes/10-thanks.js';
+import sProfile from './scenes/11-profile.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -56,7 +57,20 @@ const composer = buildPostFX(renderer, scene, camera);
 const ctx = { renderer, scene, camera };
 const sceneMgr = new SceneManager(ctx);
 
-const factories = [scene01, scene02, scene03, scene04, scene05, scene06, scene07, scene08, scene09, scene10, scene11];
+const factories = [
+  sHello,   // 01
+  sMeteor,  // 02 (NEW: meteor + water ripples, no text)
+  sIdea,    // 03 (was 02)
+  sShape,   // 04
+  sTrends,  // 05
+  sMorph,   // 06
+  sHorizon, // 07
+  sTrying,  // 08
+  sLearn,   // 09
+  sTeam,    // 10
+  sThanks,  // 11
+  sProfile, // 12
+];
 factories.forEach((factory, i) => {
   const start = i / factories.length;
   const end   = (i + 1) / factories.length;
