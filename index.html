@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
+  <title>To Trong Hieu — Backend × DevOps Engineer</title>
+  <meta name="description" content="To Trong Hieu — Backend Developer & DevOps Engineer from Thai Binh, Vietnam. A monochrome Three.js portfolio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,300;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='black' stroke='white' stroke-width='2'/><text x='16' y='21' font-family='Arial' font-size='14' font-weight='700' text-anchor='middle' fill='white'>H</text></svg>">
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://esm.sh/three@0.161.0",
+      "three/addons/": "https://esm.sh/three@0.161.0/examples/jsm/",
+      "gsap": "https://esm.sh/gsap@3.12.5",
+      "gsap/ScrollTrigger": "https://esm.sh/gsap@3.12.5/ScrollTrigger",
+      "lenis": "https://esm.sh/lenis@1.1.13"
+    }
+  }
+  </script>
+</head>
+<body>
+  <canvas id="gl"></canvas>
+
+  <header class="hud hud--top">
+    <button class="menu" aria-label="Menu" data-hover>
+      <span></span><span></span><span></span>
+    </button>
+    <div class="brand">HIEU.TO / 2026</div>
+    <button class="fs" id="fsBtn" aria-label="Toggle fullscreen" data-hover title="Fullscreen (F)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M3 9V3h6M21 9V3h-6M3 15v6h6M21 15v6h-6"/>
+      </svg>
+      <span>FULLSCREEN</span>
+    </button>
+  </header>
+
+  <main id="reel">
+
+    <!-- 01 — HELLO / hero -->
+    <section class="step" data-step="0" data-eyebrow="01">
+      <div class="step__inner">
+        <div class="step__eyebrow">— TO TRONG HIEU · 01</div>
+        <h1 class="step__title display">HELLO</h1>
+        <p class="step__sub">I'm <b>Hieu</b> &mdash; a Backend &amp; DevOps Engineer building reliable systems from Vietnam.</p>
+        <p class="step__caption mono">22 yrs · he/him · UTC+7 · open to remote · scroll to begin the reel</p>
+      </div>
+    </section>
+
+    <!-- 02 — ORIGIN -->
+    <section class="step" data-step="1" data-eyebrow="02">
+      <div class="step__inner">
+        <div class="step__eyebrow">— ORIGIN · 02</div>
+        <h2 class="step__title display">FROM&nbsp;AN&nbsp;IDEA</h2>
+        <p class="step__sub">Born <b>16 March 2004</b> in Cong Hoa village &mdash; Hung Ha district, Thai Binh province, Vietnam.</p>
+        <p class="step__caption mono">20°33′N · 106°16′E · Native Vietnamese · Professional English · Beginner Japanese</p>
+      </div>
+    </section>
+
+    <!-- 03 — FORM -->
+    <section class="step" data-step="2" data-eyebrow="03">
+      <div class="step__inner">
+        <div class="step__eyebrow">— FORM · 03</div>
+        <h2 class="step__title display">GIVE&nbsp;SHAPE</h2>
+        <p class="step__sub">B.S. Computer Science &mdash; University of Transport and Communications (UTC), Hanoi &mdash; class of 2026.</p>
+        <p class="step__caption mono">First commit at 14. First production deploy at 17.</p>
+      </div>
+    </section>
+
+    <!-- 04 — STACK -->
+    <section class="step" data-step="3" data-eyebrow="04">
+      <div class="step__inner">
+        <div class="step__eyebrow">— THE STACK · 04</div>
+        <h2 class="step__title display">FOLLOW&nbsp;THE&nbsp;TRENDS</h2>
+        <p class="step__sub">Go &middot; Rust &middot; TypeScript &middot; Python &middot; PostgreSQL &middot; Redis &middot; Kafka.</p>
+        <p class="step__caption mono">Docker · Kubernetes · Terraform · ArgoCD · GitHub Actions · AWS · GCP · Cloudflare</p>
+      </div>
+    </section>
+
+    <!-- 05 — TRANSFORMATION / experience -->
+    <section class="step" data-step="4" data-eyebrow="05">
+      <div class="step__inner">
+        <div class="step__eyebrow">— TRANSFORMATION · 05</div>
+        <h2 class="step__title display">LET&nbsp;IT&nbsp;MORPH</h2>
+        <p class="step__sub">3+ years shaping APIs, microservices and distributed pipelines.</p>
+        <p class="step__caption mono">~10 M req/day · 99.95% uptime · sub-100 ms p95 · zero on-call horror stories so far.</p>
+      </div>
+    </section>
+
+    <!-- 06 — VISION -->
+    <section class="step" data-step="5" data-eyebrow="06">
+      <div class="step__inner">
+        <div class="step__eyebrow">— VISION · 06</div>
+        <h2 class="step__title display">EYES&nbsp;ON&nbsp;THE&nbsp;HORIZON</h2>
+        <p class="step__sub">Cloud-native infrastructure, edge computing &amp; observability done right.</p>
+        <p class="step__caption mono">Currently exploring: WebAssembly on the edge · eBPF · GenAI infra cost engineering.</p>
+      </div>
+    </section>
+
+    <!-- 07 — PERSEVERANCE -->
+    <section class="step" data-step="6" data-eyebrow="07">
+      <div class="step__inner">
+        <div class="step__eyebrow">— PERSEVERANCE · 07</div>
+        <h2 class="step__title display">KEEP&nbsp;TRYING</h2>
+        <p class="step__sub">Failure is data. Persistence is the algorithm.</p>
+        <p class="step__caption mono">Postmortems &gt; blame · idempotent &gt; clever · graceful &gt; fast.</p>
+      </div>
+    </section>
+
+    <!-- 08 — GROWTH -->
+    <section class="step" data-step="7" data-eyebrow="08">
+      <div class="step__inner">
+        <div class="step__eyebrow">— GROWTH · 08</div>
+        <h2 class="step__title display">KEEP&nbsp;LEARNING</h2>
+        <p class="step__sub">Currently reading <em>Designing Data-Intensive Applications</em> &mdash; for the third time.</p>
+        <p class="step__caption mono">Next up: <em>Database Internals</em> · CKA cert · a homelab Kubernetes cluster on Raspberry Pis.</p>
+      </div>
+    </section>
+
+    <!-- 09 — TOGETHER -->
+    <section class="step" data-step="8" data-eyebrow="09">
+      <div class="step__inner">
+        <div class="step__eyebrow">— TOGETHER · 09</div>
+        <h2 class="step__title display">WORK&nbsp;AS&nbsp;A&nbsp;TEAM</h2>
+        <p class="step__sub">Open-source friendly. Async-first. Loves a clean Notion doc and an even cleaner deploy pipeline.</p>
+        <p class="step__caption mono">Discord · Slack · Linear · Github · whatever the team uses, I adapt.</p>
+      </div>
+    </section>
+
+    <!-- 10 — END -->
+    <section class="step" data-step="9" data-eyebrow="10">
+      <div class="step__inner">
+        <div class="step__eyebrow">— END · 10</div>
+        <h2 class="step__title display">THANKS</h2>
+        <p class="step__sub">Let's build something resilient.</p>
+        <p class="step__caption mono">© 2026 To Trong Hieu · Hand-coded Three.js + GLSL · No frameworks were harmed.</p>
+      </div>
+    </section>
+
+    <!-- 11 — PROFILE / PISCES -->
+    <section class="step step--profile" data-step="10" data-eyebrow="11">
+      <div class="profile-page">
+        <header class="profile-page__top">
+          <div class="profile-page__eyebrow">— PROFILE · 11 / 11 · LET'S CONNECT</div>
+          <h2 class="profile-page__name display">TO TRONG HIEU</h2>
+          <p class="profile-page__role"><i>Backend Developer</i> &mdash; <i>DevOps Engineer</i></p>
+        </header>
+
+        <aside class="profile-rail" aria-label="Identity card">
+          <dl>
+            <div><dt>BORN</dt><dd>16 / 03 / 2004 &middot; Pisces ♓</dd></div>
+            <div><dt>FROM</dt><dd>Cong Hoa &middot; Hung Ha &middot; Thai Binh, Vietnam</dd></div>
+            <div><dt>EDU</dt><dd>B.S. Computer Science &mdash; UTC, Hanoi &middot; '26</dd></div>
+            <div><dt>STACK</dt><dd>Go · Rust · TS · Python · Postgres · Kafka · K8s · Terraform · AWS / GCP / CF</dd></div>
+            <div><dt>LANGS</dt><dd>VI (native) · EN (professional) · JP (beginner)</dd></div>
+            <div><dt>STATUS</dt><dd>Open to remote &middot; UTC+7 &middot; Async-first</dd></div>
+          </dl>
+        </aside>
+
+        <nav class="profile-socials" aria-label="Social links">
+          <a class="sbtn" href="https://www.facebook.com/share/1CdWqYDuKz/?mibextid=wwXIfr"
+             target="_blank" rel="noopener noreferrer" data-hover aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <path d="M13.5 21v-7.7h2.6l.4-3h-3V8.4c0-.9.3-1.5 1.6-1.5H17V4.2c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.4H7.7v3h2.6V21h3.2z"/>
+            </svg>
+            <span>Facebook</span>
+          </a>
+          <a class="sbtn" href="https://www.tiktok.com/@tthieu160304"
+             target="_blank" rel="noopener noreferrer" data-hover aria-label="TikTok">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <path d="M19.6 7.4c-1.5-.3-2.8-1.2-3.6-2.5-.4-.7-.6-1.5-.6-2.4h-3.1v13.4c0 1.4-1.1 2.5-2.5 2.5-1.4 0-2.5-1.1-2.5-2.5 0-1.4 1.1-2.5 2.5-2.5.3 0 .6.1.9.2v-3.2c-.3 0-.6-.1-.9-.1-3.1 0-5.6 2.5-5.6 5.6s2.5 5.6 5.6 5.6 5.6-2.5 5.6-5.6V9.6c1.2.8 2.7 1.3 4.2 1.3v-3.5z"/>
+            </svg>
+            <span>@tthieu160304</span>
+          </a>
+          <a class="sbtn" href="https://www.instagram.com/tthieu160304/"
+             target="_blank" rel="noopener noreferrer" data-hover aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/>
+            </svg>
+            <span>@tthieu160304</span>
+          </a>
+          <a class="sbtn" href="https://github.com/tohieu1603"
+             target="_blank" rel="noopener noreferrer" data-hover aria-label="GitHub">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.12-1.47-1.12-1.47-.91-.62.07-.61.07-.61 1.01.07 1.55 1.04 1.55 1.04.9 1.54 2.36 1.09 2.94.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/>
+            </svg>
+            <span>@tohieu1603</span>
+          </a>
+          <a class="sbtn" href="mailto:hieu.totrong@proton.me"
+             data-hover aria-label="Email">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2"/>
+              <path d="M3 7l9 6 9-6"/>
+            </svg>
+            <span>hieu.totrong@proton.me</span>
+          </a>
+        </nav>
+
+        <p class="profile-page__sign">An atom of one — orbits, dust, a glowing core &middot; hand-coded with three.js + GLSL &middot; press <kbd>F</kbd> for fullscreen &middot; © 2026</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="hud hud--bottom">
+    <div class="progress"><span id="progressBar"></span></div>
+    <div class="hint">
+      <span class="hint__label">SCROLL</span>
+      <span class="hint__chev"></span>
+    </div>
+    <div class="counter"><span id="counterCurrent">01</span><i>/</i>11</div>
+  </footer>
+
+  <div id="cursor" aria-hidden="true"></div>
+
+  <script type="module" src="src/main.js?v=18"></script>
+</body>
+</html>
