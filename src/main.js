@@ -22,15 +22,23 @@ import sProfile from './scenes/11-profile.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* ---------- Device profile ---------- */
+const IS_TOUCH = matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
+const IS_NARROW = window.innerWidth < 820;
+const IS_MOBILE = IS_TOUCH && IS_NARROW;
+// PR cap: desktop high-DPI = 2 (sharp), mobile = 1.4 (saves ~50% fragment work)
+const PR_CAP = IS_MOBILE ? 1.4 : 2;
+document.body.classList.toggle('is-mobile', IS_MOBILE);
+
 /* ---------- Renderer ---------- */
 const canvas = document.getElementById('gl');
 const renderer = new THREE.WebGLRenderer({
   canvas,
-  antialias: true,
+  antialias: !IS_MOBILE,           // disable MSAA on mobile (heavy)
   alpha: false,
   powerPreference: 'high-performance',
 });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, PR_CAP));
 renderer.setClearColor(0x000000, 1);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 
@@ -98,11 +106,21 @@ window.addEventListener('mousemove', (e) => {
   targetMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 });
 
-/* ---------- Lenis smooth scroll ---------- */
-const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
-lenis.on('scroll', ScrollTrigger.update);
-gsap.ticker.add((time) => lenis.raf(time * 1000));
-gsap.ticker.lagSmoothing(0);
+/* ---------- Lenis smooth scroll (desktop only — mobile uses native momentum) ---------- */
+let lenis = null;
+if (!IS_TOUCH) {
+  lenis = new Lenis({
+    duration: 1.1,
+    smoothWheel: true,
+    syncTouch: false,           // never hijack touch — native momentum is smoother
+  });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
+} else {
+  // On touch devices, ScrollTrigger reads native scroll directly.
+  ScrollTrigger.normalizeScroll(true);
+}
 
 /* ---------- Scroll progress ---------- */
 let scrollProgress = 0;

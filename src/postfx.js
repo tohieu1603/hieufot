@@ -9,9 +9,9 @@ const grainShader = {
   uniforms: {
     tDiffuse:   { value: null },
     uTime:      { value: 0 },
-    uIntensity: { value: 0.06 },
-    uVignette:  { value: 0.7 },
-    uChroma:    { value: 0.0012 },
+    uIntensity: { value: 0.05 },
+    uVignette:  { value: 0.6 },
+    uChroma:    { value: 0.001 },
     uResolution:{ value: new THREE.Vector2(1, 1) },
   },
   vertexShader: /* glsl */ `
@@ -62,11 +62,13 @@ export function buildPostFX(renderer, scene, camera) {
   const composer = new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene, camera));
 
+  const isMobile = matchMedia('(pointer: coarse)').matches && window.innerWidth < 820;
+
   const bloom = new UnrealBloomPass(
     new THREE.Vector2(window.innerWidth, window.innerHeight),
-    0.28, // strength
-    0.55, // radius
-    0.62, // threshold (only highlights bloom)
+    isMobile ? 0.20 : 0.28,                 // strength — gentler on mobile
+    isMobile ? 0.40 : 0.55,                 // radius
+    isMobile ? 0.72 : 0.62,                 // threshold — only the brightest pixels bloom
   );
   composer.addPass(bloom);
 

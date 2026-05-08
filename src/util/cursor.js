@@ -1,6 +1,11 @@
 export function initCursor() {
   const cursor = document.getElementById('cursor');
   if (!cursor) return;
+  // Skip the custom cursor entirely on touch devices (avoids extra rAF + listeners)
+  if (matchMedia('(hover: none), (pointer: coarse)').matches) {
+    cursor.style.display = 'none';
+    return;
+  }
 
   let tx = 0, ty = 0, x = 0, y = 0;
 

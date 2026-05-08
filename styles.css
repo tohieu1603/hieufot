@@ -1,7 +1,13 @@
 /* === Reset & base === */
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { width: 100%; background: #000; color: #fff; -webkit-font-smoothing: antialiased; }
-html { scroll-behavior: auto; }
+html {
+  scroll-behavior: auto;
+  /* allow vertical pan, block pinch-zoom & horizontal pan jitter */
+  touch-action: pan-y;
+  /* prevent iOS rubber-band cascading into Lenis math */
+  overscroll-behavior-y: none;
+}
 body {
   font-family: 'Space Grotesk', system-ui, sans-serif;
   font-weight: 400;
@@ -18,6 +24,7 @@ body {
   inset: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;          /* iOS Safari address-bar safe */
   z-index: 0;
   display: block;
 }
@@ -28,6 +35,7 @@ body {
 .step {
   position: relative;
   height: 100vh;
+  height: 100dvh;          /* dynamic viewport — no jump when iOS chrome hides */
   width: 100%;
   display: grid;
   place-items: center;
@@ -44,6 +52,7 @@ body {
 .step--empty {
   /* full-viewport scroll slot with no HTML content — only the canvas effect plays */
   height: 100vh;
+  height: 100dvh;
 }
 .step__inner.profile {
   mix-blend-mode: normal;
@@ -235,6 +244,7 @@ body {
 /* === Scene 11 — Pisces profile page === */
 .step--profile {
   height: 100vh;
+  height: 100dvh;
   align-items: stretch;
 }
 
